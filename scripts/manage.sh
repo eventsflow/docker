@@ -8,8 +8,8 @@ if [[ $# -eq 0 ]]; then
 fi
 
 
-# GitHub Docker Registry
-GITHUB_DOCKER_REGISTRY="docker.pkg.github.com"
+# GitLab Docker Registry
+GITLAB_DOCKER_REGISTRY="gitlab.com"
 
 
 case ${1} in
@@ -19,7 +19,7 @@ case ${1} in
         echo ' build                    - build docker image'
         echo ' test                     - run tests for docker image'
         echo ' remove                   - remove docker image'
-        echo ' publish-to-gh-registry   - publish docker image to GitHub Registry'
+        echo ' publish-to-gl-registry   - publish docker image to GitLab Registry'
         echo ' console                  - run console for specific image'
         ;;
     update-base-images)
@@ -76,33 +76,33 @@ case ${1} in
             docker image rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
         }
         ;;
-    publish-to-gh-registry)
-        shift
-        DOCKERFILE_PATH=${1:-}
-        GITHUB_USERNAME=${2:-}
-        GITHUB_TOKEN=${3:-}
+    # publish-to-gh-registry)
+    #     shift
+    #     DOCKERFILE_PATH=${1:-}
+    #     GITHUB_USERNAME=${2:-}
+    #     GITHUB_TOKEN=${3:-}
 
-        [ -z "${DOCKERFILE_PATH}" ] && {
-            echo "[ERROR] Please specify the image name by 'image' parameter"
-            exit 1
-        } || {
-            echo "[INFO] Publish image from path: ${DOCKERFILE_PATH} to GitHub Registry: ${GITHUB_DOCKER_REGISTRY}"
-            cd ${DOCKERFILE_PATH}
-            source metadata
-            echo "${GITHUB_TOKEN}" | docker login ${GITHUB_DOCKER_REGISTRY} \
-                                            -u ${GITHUB_USERNAME} --password-stdin
+    #     [ -z "${DOCKERFILE_PATH}" ] && {
+    #         echo "[ERROR] Please specify the image name by 'image' parameter"
+    #         exit 1
+    #     } || {
+    #         echo "[INFO] Publish image from path: ${DOCKERFILE_PATH} to GitHub Registry: ${GITHUB_DOCKER_REGISTRY}"
+    #         cd ${DOCKERFILE_PATH}
+    #         source metadata
+    #         echo "${GITHUB_TOKEN}" | docker login ${GITHUB_DOCKER_REGISTRY} \
+    #                                         -u ${GITHUB_USERNAME} --password-stdin
             
-            # GITHUB_DOCKER_IMAGE_ID
-            GITHUB_DOCKER_IMAGE_ID=${GITHUB_DOCKER_REGISTRY}/eventsflow/eventsflow-docker
-            GITHUB_DOCKER_IMAGE_ID=${GITHUB_DOCKER_IMAGE_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+    #         # GITHUB_DOCKER_IMAGE_ID
+    #         GITHUB_DOCKER_IMAGE_ID=${GITHUB_DOCKER_REGISTRY}/eventsflow/eventsflow-docker
+    #         GITHUB_DOCKER_IMAGE_ID=${GITHUB_DOCKER_IMAGE_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
 
-            # Tag docker image with GitHub Docker Registry
-            docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${GITHUB_DOCKER_IMAGE_ID}
+    #         # Tag docker image with GitHub Docker Registry
+    #         docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${GITHUB_DOCKER_IMAGE_ID}
             
-            # Push docker image to GitHub Docker Registry
-            docker push ${GITHUB_DOCKER_IMAGE_ID}
-        }
-        ;;
+    #         # Push docker image to GitHub Docker Registry
+    #         docker push ${GITHUB_DOCKER_IMAGE_ID}
+    #     }
+    #     ;;
     console)
         shift
         DOCKERFILE_PATH=${1:-}

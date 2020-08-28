@@ -1,2 +1,7 @@
 before_script:
   - docker info
+
+build:
+- ./scripts/manage.sh build base
+- ./scripts/manage.sh test base
+
