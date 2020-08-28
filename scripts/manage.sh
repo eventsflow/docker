@@ -10,6 +10,10 @@ fi
 
 # GitLab Docker Registry
 GITLAB_DOCKER_REGISTRY="registry.gitlab.com"
+# GitLab Group
+GITLAB_GROUP=eventsflow
+# GitLba Project
+GITLAB_PROJECT=eventsflow-docker
 
 
 case ${1} in
@@ -76,11 +80,9 @@ case ${1} in
             docker image rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
         }
         ;;
-    publish-to-gl-registry)
+    publish-to-gitlab-registry)
         shift
         DOCKERFILE_PATH=${1:-}
-        GITLAB_USERNAME=${2:-}
-        GITLAB_TOKEN=${3:-}
 
         [ -z "${DOCKERFILE_PATH}" ] && {
             echo "[ERROR] Please specify the image name by 'image' parameter"
@@ -89,11 +91,9 @@ case ${1} in
             echo "[INFO] Publish image from path: ${DOCKERFILE_PATH} to GitLab Registry: ${GITLAB_DOCKER_REGISTRY}"
             cd ${DOCKERFILE_PATH}
             source metadata
-            echo "${GITLAB_TOKEN}" | docker login ${GITLAB_DOCKER_REGISTRY} \
-                                            -u ${GITLAB_USERNAME} --password-stdin
             
             # GITLAB_DOCKER_IMAGE_ID
-            GITLAB_DOCKER_IMAGE_ID=${GITLAB_DOCKER_REGISTRY}/eventsflow/eventsflow-docker
+            GITLAB_DOCKER_IMAGE_ID=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}
             GITLAB_DOCKER_IMAGE_ID=${GITLAB_DOCKER_IMAGE_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
 
             # Tag docker image with GitLab Docker Registry
