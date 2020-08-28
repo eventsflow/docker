@@ -35,6 +35,7 @@ build_base_image:
   - ./scripts/manage.sh test base
 
 build_dev_image:
-    stage: build
-    - ./scripts/manage.sh build dev
-    - ./scripts/manage.sh test dev
+  stage: build
+  script:
+  - ./scripts/manage.sh build dev
+  - ./scripts/manage.sh test dev
