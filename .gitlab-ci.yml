@@ -25,12 +25,16 @@ variables:
 services:
   - docker:19.03.12-dind
 
-before_script:
-  - docker info
+# before_script:
+#   - docker info
 
-build:
+build_base_image:
   stage: build
   script:
   - ./scripts/manage.sh build base
   - ./scripts/manage.sh test base
 
+build_dev_image:
+    stage: build
+    - ./scripts/manage.sh build dev
+    - ./scripts/manage.sh test dev
