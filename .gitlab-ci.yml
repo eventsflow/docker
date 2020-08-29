@@ -22,10 +22,10 @@ base_images:
     - ./scripts/manage.sh publish-to-gitlab-registry base
 
   
-dev_images:
-  image: docker:stable
-  stage: dev_images
-  script:
-     - ./scripts/manage.sh build dev
-     - ./scripts/manage.sh test dev
-     - ./scripts/manage.sh publish-to-gitlab-registry dev
+# dev_images:
+#   image: docker:stable
+#   stage: dev_images
+#   script:
+#      - ./scripts/manage.sh build dev
+#      - ./scripts/manage.sh test dev
+#      - ./scripts/manage.sh publish-to-gitlab-registry dev
