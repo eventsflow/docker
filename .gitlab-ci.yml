@@ -27,8 +27,12 @@ before_script:
 - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
-- base_images
-- dev_images
+  - base_images
+  - dev_images
+
+  # stages required for container scanning
+  - .pre
+  - .post
 
 base_images:
   image: docker:stable
