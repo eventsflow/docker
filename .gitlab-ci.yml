@@ -1,5 +1,3 @@
-image: docker:19.03.12
-
 variables:
     # When using dind service, we need to instruct docker to talk with
     # the daemon started inside of the service. The daemon is available
@@ -33,6 +31,7 @@ stages:
 - dev_images
 
 base_images:
+  image: docker:stable
   stage: base_images
   script:
   - ./scripts/manage.sh build base
@@ -41,8 +40,12 @@ base_images:
 
   
 dev_images:
+  image: docker:stable
   stage: dev_images
   script:
    - ./scripts/manage.sh build dev
    - ./scripts/manage.sh test dev
    - ./scripts/manage.sh publish-to-gitlab-registry dev
+
+include:
+ - template: Container-Scanning.gitlab-ci.yml
