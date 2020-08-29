@@ -40,8 +40,7 @@ case ${1} in
 
         echo "[INFO] Cleaning coverage files" && \
         	rm -rf \
-        		.coverage.* \
-        		report.xml
+        		.coverage.* 
         ;;
     *)
         if [ ! "$@" ]; then
