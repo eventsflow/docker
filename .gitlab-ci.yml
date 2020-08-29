@@ -12,10 +12,12 @@ before_script:
 
 stages:
   - build
+  - test
 
 base_images:
   image: docker:stable
-  stage: base_images
+  stage: build
+  # stage: base_images
   script:
     - ./scripts/manage.sh build base
     - ./scripts/manage.sh test base
