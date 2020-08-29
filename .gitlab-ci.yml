@@ -1,5 +1,5 @@
 default:
-  image: docker:stable
+  image: docker:19.03.12
 
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
