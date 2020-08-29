@@ -16,13 +16,12 @@ before_script:
 stages:
   - build
   - test
+  - deploy
   - base_image
   - dev_images
 
 base_images:
-  stage:
-    - build
-    - base_image
+  stage: base_image
   script:
     - ./scripts/manage.sh build base
     - ./scripts/manage.sh test base
@@ -30,9 +29,7 @@ base_images:
 
   
 dev_images:
-  stage:
-    - build
-    - dev_image
+  stage: dev_image
   script:
     - ./scripts/manage.sh build dev
     - ./scripts/manage.sh test dev
