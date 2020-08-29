@@ -109,8 +109,9 @@ case ${1} in
             # Set GitLab Docker Image
             GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
 
-            # Push docker image to GitLab Docker Registry
-            docker push ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} ${GITLAB_DOCKER_IMAGE}:latest
+            # Push docker image(-s) to GitLab Docker Registry
+            docker push ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} 
+            docker push ${GITLAB_DOCKER_IMAGE}:latest
         }
         ;;
     console)
