@@ -18,7 +18,7 @@ stages:
   - test
   - deploy
   - base_image
-  - dev_images
+  - dev_image
 
 base_images:
   stage: base_image
