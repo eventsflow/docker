@@ -43,8 +43,16 @@ case ${1} in
             cd ${DOCKERFILE_PATH}
             source metadata
 
+            # Set GitLab Docker Image
+            GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
+            
+            # Use Docker caching
+            docker pull ${GITLAB_DOCKER_IMAGE}:latest || true
+    
             # Build docker image
-            docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+            docker build --cache-from ${GITLAB_DOCKER_IMAGE}:latest \
+                --tag ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} \
+                --tag ${GITLAB_DOCKER_IMAGE}:latest .
         }
         ;;
     test)
@@ -59,9 +67,12 @@ case ${1} in
             cd ${DOCKERFILE_PATH}
             source metadata
 
+            # Set GitLab Docker Image
+            GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
+
             # Run tests for docker image
             docker run --rm -v $(pwd)/tests:/tests \
-		            ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} /tests/run-tests.sh
+		            ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} /tests/run-tests.sh
         }
         ;;
     remove)
@@ -75,9 +86,12 @@ case ${1} in
             echo "[INFO] Removing image from path: ${DOCKERFILE_PATH}"
             cd ${DOCKERFILE_PATH}
             source metadata
-            
-            # Remove docker image 
-            docker image rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+
+            # Set GitLab Docker Image
+            GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
+
+            # Remove docker images
+            docker image rm ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} ${GITLAB_DOCKER_IMAGE}:latest
         }
         ;;
     publish-to-gitlab-registry)
@@ -91,16 +105,12 @@ case ${1} in
             echo "[INFO] Publish image from path: ${DOCKERFILE_PATH} to GitLab Registry: ${GITLAB_DOCKER_REGISTRY}"
             cd ${DOCKERFILE_PATH}
             source metadata
-            
-            # GITLAB_DOCKER_IMAGE_ID
-            GITLAB_DOCKER_IMAGE_ID=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}
-            GITLAB_DOCKER_IMAGE_ID=${GITLAB_DOCKER_IMAGE_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
 
-            # Tag docker image with GitLab Docker Registry
-            docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} ${GITLAB_DOCKER_IMAGE_ID}
-            
+            # Set GitLab Docker Image
+            GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
+
             # Push docker image to GitLab Docker Registry
-            docker push ${GITLAB_DOCKER_IMAGE_ID}
+            docker push ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} ${GITLAB_DOCKER_IMAGE}:latest
         }
         ;;
     console)
@@ -114,11 +124,15 @@ case ${1} in
             echo "[INFO] Running console for image: ${DOCKERFILE_PATH}"
             cd ${DOCKERFILE_PATH}
             source metadata
-            echo "[INFO] The image: ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}, the container name: ${DOCKER_IMAGE_NAME}-console"
+
+            # Set GitLab Docker Image
+            GITLAB_DOCKER_IMAGE=${GITLAB_DOCKER_REGISTRY}/${GITLAB_GROUP}/${GITLAB_PROJECT}/${DOCKER_IMAGE_NAME}
+
+            echo "[INFO] The image: ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION}, the container name: ${DOCKER_IMAGE_NAME}-console"
 
             # Open console
             docker run -ti --rm --name ${DOCKER_IMAGE_NAME}-console \
-                ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} \
+                ${GITLAB_DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION} \
                 ${DOCKER_IMAGE_SHELL}
         }
         ;;
