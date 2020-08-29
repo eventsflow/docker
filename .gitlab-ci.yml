@@ -29,24 +29,20 @@ before_script:
 - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
-- build
-- test
-- deploy
+- base_images
+- dev_images
 
-build_images:
-  stage: build
+base_images:
+  stage: base_images
   script:
   - ./scripts/manage.sh build base
-  - ./scripts/manage.sh build dev
-
-test_images:
-  stage: test
-  script:
   - ./scripts/manage.sh test base
-  - ./scripts/manage.sh test dev
-
-deploy_images:
-  stage: deploy
-  script:
   - ./scripts/manage.sh publish-to-gitlab-registry base
-  - ./scripts/manage.sh publish-to-gitlab-registry dev
+
+  
+dev_images:
+  stage: dev_images
+  script:
+   - ./scripts/manage.sh build dev
+   - ./scripts/manage.sh test dev
+   - ./scripts/manage.sh publish-to-gitlab-registry dev
