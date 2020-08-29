@@ -39,8 +39,7 @@ case ${1} in
         remove_cache_and_egg_files
 
         echo "[INFO] Cleaning coverage files" && \
-        	rm -rf \
-        		.coverage.* 
+        	rm -rf .coverage.* 
         ;;
     *)
         if [ ! "$@" ]; then
