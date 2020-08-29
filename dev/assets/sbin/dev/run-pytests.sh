@@ -9,7 +9,7 @@ set -e
 #   --extra-index-url http://pypi-server:8080/simple/
 
 pip3 install -e . && \
-PYTHONDONTWRITEBYTECODE=1 pytest \
+    PYTHONDONTWRITEBYTECODE=1 pytest \
     --cov=eventsflow \
     -p no:cacheprovider \
     --junitxml=report.xml \
