@@ -1,13 +1,15 @@
 # eventsflow-docker
 
+[![pipeline status](https://gitlab.com/eventsflow/eventsflow-docker/badges/master/pipeline.svg)](https://gitlab.com/eventsflow/eventsflow-docker/-/commits/master)
+
 Docker images for eventsflow
 
 ## Overal Status
 
 | Branch | Status                                              |
 | ------ | --------------------------------------------------- |
-| Master | ![Build docker images](https://github.com/eventsflow/eventsflow-docker/workflows/Build%20docker%20images/badge.svg?branch=master) |
-| Master | ![Release docker images](https://github.com/eventsflow/eventsflow-docker/workflows/Release%20docker%20images/badge.svg?branch=master) |
+| Master | TBD |
+| Master | TBD |
 
 ## Docker Images
 
