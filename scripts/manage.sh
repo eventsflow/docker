@@ -13,7 +13,7 @@ GITLAB_DOCKER_REGISTRY="registry.gitlab.com"
 # GitLab Group
 GITLAB_GROUP=eventsflow
 # GitLba Project
-GITLAB_PROJECT=eventsflow-docker
+GITLAB_PROJECT=docker
 
 
 case ${1} in
