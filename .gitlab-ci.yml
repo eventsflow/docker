@@ -19,6 +19,7 @@ stages:
   - deploy
   - base_image
   - dev_image
+  - dev_vscode_image
 
 base_images:
   stage: base_image
@@ -34,3 +35,10 @@ dev_images:
     - ./scripts/manage.sh build dev
     - ./scripts/manage.sh test dev
     - ./scripts/manage.sh publish-to-gitlab-registry dev
+
+dev_vscode_images:
+  stage: dev_vscode_image
+  script:
+    - ./scripts/manage.sh build dev-vscode
+    - ./scripts/manage.sh test dev-vscode
+    - ./scripts/manage.sh publish-to-gitlab-registry dev-vscode
