@@ -24,6 +24,9 @@ stages:
 base_images:
   stage: base_image
   script:
+    - echo $0
+    - whereis bash
+    - /usr/bin/env
     - ./scripts/manage.sh build base
     - ./scripts/manage.sh test base
     - ./scripts/manage.sh publish-to-gitlab-registry base
