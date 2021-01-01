@@ -24,21 +24,21 @@ stages:
 base_images:
   stage: base_image
   script:
-    - ./scripts/manage.sh build base
-    - ./scripts/manage.sh test base
-    - ./scripts/manage.sh publish-to-gitlab-registry base
+    - bash ./scripts/manage.sh build base
+    - bash ./scripts/manage.sh test base
+    - bash ./scripts/manage.sh publish-to-gitlab-registry base
 
   
 dev_images:
   stage: dev_image
   script:
-    - ./scripts/manage.sh build dev
-    - ./scripts/manage.sh test dev
-    - ./scripts/manage.sh publish-to-gitlab-registry dev
+    - bash ./scripts/manage.sh build dev
+    - bash ./scripts/manage.sh test dev
+    - bash ./scripts/manage.sh publish-to-gitlab-registry dev
 
 dev_vscode_images:
   stage: dev_vscode_image
   script:
-    - ./scripts/manage.sh build dev-vscode
-    - ./scripts/manage.sh test dev-vscode
-    - ./scripts/manage.sh publish-to-gitlab-registry dev-vscode
+    - bash ./scripts/manage.sh build dev-vscode
+    - bash ./scripts/manage.sh test dev-vscode
+    - bash ./scripts/manage.sh publish-to-gitlab-registry dev-vscode
