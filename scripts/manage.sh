@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eu
 
@@ -30,6 +30,7 @@ case ${1} in
         echo "[INFO] Updating base images" && \
             docker pull alpine:3.12
             docker pull ubuntu:20.04
+            docker pull ubuntu:20.10
         ;;
     build)
         shift
