@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/eventsflow/docker/base:0.4.3-ubuntu
+FROM registry.gitlab.com/eventsflow/docker/base:0.5.0-ubuntu
 
 COPY assets/ /tmp/assets/
 
