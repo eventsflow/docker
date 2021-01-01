@@ -2,10 +2,10 @@ FROM registry.gitlab.com/eventsflow/docker/dev:0.5.4-ubuntu
 
 COPY assets/ /tmp/assets/
 
-RUN echo '[INFO] Configure environment' && \
-        /sbin/install.sh && \
-    echo "[INFO] Configure Dev VSCode environment" && \
-        /tmp/assets/sbin/dev-vscode-install.sh
+RUN echo "[INFO] Configure Dev VSCode environment" && \
+        /tmp/assets/sbin/dev-vscode-install.sh && \
+    echo '[INFO] Configure environment' && \
+        /sbin/install.sh
 
 USER vscode
 ENTRYPOINT ["/sbin/entrypoint.sh"]
