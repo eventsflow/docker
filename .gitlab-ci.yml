@@ -24,6 +24,7 @@ stages:
 base_images:
   stage: base_image
   script:
+    - cat /root/.docker/config.json
     - whereis bash
     - ./scripts/manage.sh build base
     - ./scripts/manage.sh test base
