@@ -7,7 +7,7 @@ pytest-xdist
 pytest-benchmark
 
 twine
-bump2version
+versioneer
 
 pypiserver
 passlib

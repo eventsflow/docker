@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1
+
+- [x] replace bump2version to versioneer
+
+## 0.6.0
+
+- [x] use base image 0.5.0-ubuntu
+
 ## 0.5.4
 
 - [x] remove using local pypi server
