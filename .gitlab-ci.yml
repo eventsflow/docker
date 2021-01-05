@@ -15,9 +15,6 @@ before_script:
   - apk add bash
 
 stages:
-  - build
-  - test
-  - deploy
   - base_image
   - dev_image
   - dev_vscode_image
@@ -28,14 +25,17 @@ base_images:
     - ./scripts/manage.sh build base
     - ./scripts/manage.sh test base
     - ./scripts/manage.sh publish-to-gitlab-registry base
+  only:
+  - tags
 
-  
 dev_images:
   stage: dev_image
   script:
     - ./scripts/manage.sh build dev
     - ./scripts/manage.sh test dev
     - ./scripts/manage.sh publish-to-gitlab-registry dev
+  only:
+  - tags
 
 dev_vscode_images:
   stage: dev_vscode_image
@@ -43,3 +43,5 @@ dev_vscode_images:
     - ./scripts/manage.sh build dev-vscode
     - ./scripts/manage.sh test dev-vscode
     - ./scripts/manage.sh publish-to-gitlab-registry dev-vscode
+  only:
+  - tags
