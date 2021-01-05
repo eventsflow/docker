@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0-ubuntu
+
+- [x] use ubuntu 20.10
+
 ## 0.4.3
 
 - [x] use bash instead of sh in entrypoint.sh script
