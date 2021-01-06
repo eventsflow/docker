@@ -4,18 +4,10 @@
 
 Docker images for eventsflow
 
-## Overal Status
-
-| Branch | Status |
-| ------ | ------ |
-| master | TBD    |
-| dev    | TBD    |
-
 ## Docker Images
 
 | Docker Image           | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
 | eventsflow/docker/base | Base docker image for testing and running processing flows based on eventsflow |
 | eventsflow/docker/dev  | Dev docker images for eventsflow development and testing     |
-
-
+| eventsflow/docker/dev-vscode  | Dev docker images for eventsflow development and testing in VS Code    |
