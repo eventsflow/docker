@@ -6,11 +6,22 @@ set -e
 remove_cache_and_egg_files() {
 
     echo "[INFO] Cleaning cache files" && \
-        find . -name __pycache__ -delete
-    	# find . -name "__pycache__" -type d  -exec rm -rf {} \;
+    	find . -name "__pycache__" -type d -prune -exec rm -rf "{}" \;
 
     echo "[INFO] Cleaning files: *.egg-info" && \
-    	rm -rf "*.egg-info"
+    	find . -name "*.egg-info" -type d -prune -exec rm -rf "{}" \;
+}
+
+remove_build_dirs() {
+
+    echo "[INFO] Cleaning build directories" && \
+    	rm -rf build dist
+}
+
+remove_coverage_reports() {
+
+    echo "[INFO] Cleaning coverage files" && \
+    	rm -rf .coverage.* 
 }
 
 
@@ -25,22 +36,17 @@ case ${1} in
         echo "[INFO] Starting pre-cleanup"
  
         remove_cache_and_egg_files
- 
-        echo "[INFO] Cleaning build directories" && \
-        	rm -rf build dist
-
-        echo "[INFO] Cleaning files: *.pyc" && \
-        	find . -name "*.pyc" -delete
-
+        remove_build_dirs
+        remove_coverage_reports
         ;;
+
     post-cleanup)
         echo "[INFO] Starting post-cleanup"
         
         remove_cache_and_egg_files
-
-        echo "[INFO] Cleaning coverage files" && \
-        	rm -rf .coverage.* 
+        remove_coverage_reports
         ;;
+
     *)
         if [ ! "$@" ]; then
             echo "[WARNING] No cleanup mode specified, use help for more details" 
