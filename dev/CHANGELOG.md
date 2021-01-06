@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2
+
+- [x] improve the logic for pre-/post-testing cleanup
+
 ## 0.6.1
 
 - [x] replace bump2version to versioneer
