@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.3
+
+- [x] remove versioneer and add setuptools, setuptools_scm, build, wheel 
+
 ## 0.6.2
 
 - [x] improve the logic for pre-/post-testing cleanup
