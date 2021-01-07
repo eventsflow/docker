@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.3
+
+- use dev image 0.6.3-ubuntu
+
 ## 0.2.2
 
 - use dev image 0.6.2-ubuntu
