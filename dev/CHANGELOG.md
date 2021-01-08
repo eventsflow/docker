@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.4
+
+- [x] add git to `dev` image
+
 ## 0.6.3
 
 - [x] remove versioneer and add setuptools, setuptools_scm, build, wheel 
